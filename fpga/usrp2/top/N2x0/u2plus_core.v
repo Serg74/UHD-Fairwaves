@@ -126,6 +126,7 @@ module u2plus_core
    inout [15:0] io_tx,
    inout [15:0] io_rx,
 
+`ifndef NO_EXT_FIFO
    // External RAM
    input [35:0] RAM_D_pi,
    output [35:0] RAM_D_po,
@@ -136,6 +137,7 @@ module u2plus_core
    output RAM_WEn,
    output RAM_OEn,
    output RAM_LDn,
+`endif // !`ifndef NO_EXT_FIFO
    
    // Debug stuff
    output [3:0] uart_tx_o, 
@@ -680,13 +682,20 @@ module u2plus_core
    wire [31:0] 	 debug_vt;
    wire 	 clear_tx;
 
+   setting_reg #(.my_addr(SR_TX_CTRL+1)) sr_clear_tx
+     (.clk(dsp_clk),.rst(dsp_rst),.strobe(set_stb_dsp),.addr(set_addr_dsp),
+      .in(set_data_dsp),.out(),.changed(clear_tx));
+
+`ifndef NO_EXT_FIFO
    assign 	 RAM_A[20:18] = 3'b0;
+`endif // !`ifndef NO_EXT_FIFO
    
    ext_fifo #(.EXT_WIDTH(36),.INT_WIDTH(36),.RAM_DEPTH(18),.FIFO_DEPTH(18)) 
      ext_fifo_i1
        (.int_clk(dsp_clk),
 	.ext_clk(dsp_clk),
 	.rst(dsp_rst | clear_tx),
+`ifndef NO_EXT_FIFO
 	.RAM_D_pi(RAM_D_pi),
 	.RAM_D_po(RAM_D_po),
 	.RAM_D_poe(RAM_D_poe),
@@ -696,6 +705,17 @@ module u2plus_core
 	.RAM_LDn(RAM_LDn),
 	.RAM_OEn(RAM_OEn),
 	.RAM_CE1n(RAM_CE1n),
+`else
+	.RAM_D_pi(),
+	.RAM_D_po(),
+	.RAM_D_poe(),
+	.RAM_A(),
+	.RAM_WEn(),
+	.RAM_CENn(),
+	.RAM_LDn(),
+	.RAM_OEn(),
+	.RAM_CE1n(),
+`endif // !`ifndef NO_EXT_FIFO
 	.datain(rd1_dat),
 	.src_rdy_i(rd1_ready_o),
 	.dst_rdy_o(rd1_ready_i),
