@@ -79,6 +79,7 @@ module u2plus_core
    input por,
    output config_success,
    
+`ifndef LMS602D_FRONTEND
    // ADC
    input [13:0] adc_a,
    input adc_ovf_a,
@@ -89,6 +90,28 @@ module u2plus_core
    input adc_ovf_b,
    output adc_on_b,
    output adc_oe_b,
+`else
+   // ADC 0
+   input [13:0] adc_a_0,
+   input adc_ovf_a_0,
+   output adc_on_a_0,
+   output adc_oe_a_0,
+
+   input [13:0] adc_b_0,
+   input adc_ovf_b_0,
+   output adc_on_b_0,
+   output adc_oe_b_0,
+   // ADC 1
+   input [13:0] adc_a_1,
+   input adc_ovf_a_1,
+   output adc_on_a_1,
+   output adc_oe_a_1,
+
+   input [13:0] adc_b_1,
+   input adc_ovf_b_1,
+   output adc_on_b_1,
+   output adc_oe_b_1,
+`endif // !`ifndef LMS602D_FRONTEND
    
    // DAC
    output [15:0] dac_a,
@@ -620,8 +643,13 @@ module u2plus_core
    rx_frontend #(.BASE(SR_RX_FRONT)) rx_frontend
      (.clk(dsp_clk),.rst(dsp_rst),
       .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
+`ifndef NO_LMS
       .adc_a({adc_a,2'b00}),.adc_ovf_a(adc_ovf_a),
       .adc_b({adc_b,2'b00}),.adc_ovf_b(adc_ovf_b),
+`else
+      .adc_a({adc_a_0,2'b00}),.adc_ovf_a(adc_ovf_a_0),
+      .adc_b({adc_b_0,2'b00}),.adc_ovf_b(adc_ovf_b_0),
+`endif // !`ifndef NO_LMS
       .i_out(rx_fe_i), .q_out(rx_fe_q), .run(run_rx0_d1 | run_rx1_d1), .debug());
    
    // /////////////////////////////////////////////////////////////////////////
