@@ -135,6 +135,7 @@ module u2plus_core
    output sclk,
    output mosi,
    input miso,
+`ifndef UMTRX
    output sen_clk,
    output sen_dac,
    output sen_adc,
@@ -144,6 +145,11 @@ module u2plus_core
    output sen_rx_db,
    output sen_rx_adc,
    output sen_rx_dac,
+`else
+   output sen_dac,
+   output sen_lms1,
+   output sen_lms2,
+`endif // !`ifndef UMTRX
    
    // GPIO to DBoards
    inout [15:0] io_tx,
@@ -442,6 +448,7 @@ module u2plus_core
     wire [31:0] spi_debug;
     wire [31:0] spi_readback;
     wire spi_ready;
+`ifndef UMTRX
     simple_spi_core #(.BASE(SR_SPI_CORE), .WIDTH(9)) shared_spi(
         .clock(dsp_clk), .reset(dsp_rst),
         .set_stb(set_stb_dsp), .set_addr(set_addr_dsp), .set_data(set_data_dsp),
@@ -449,6 +456,15 @@ module u2plus_core
         .sen({sen_adc, sen_tx_db,sen_tx_adc,sen_tx_dac,sen_rx_db,sen_rx_adc,sen_rx_dac,sen_dac,sen_clk}),
         .sclk(sclk), .mosi(mosi), .miso(miso), .debug(spi_debug)
     );
+`else
+    simple_spi_core #(.BASE(SR_SPI_CORE), .WIDTH(3)) shared_spi(
+        .clock(dsp_clk), .reset(dsp_rst),
+        .set_stb(set_stb_dsp), .set_addr(set_addr_dsp), .set_data(set_data_dsp),
+        .readback(spi_readback), .ready(spi_ready),
+        .sen({sen_dac, sen_lms1, sen_lms2}),
+        .sclk(sclk), .mosi(mosi), .miso(miso), .debug(spi_debug)
+    );
+`endif // !`ifndef UMTRX
 
    // /////////////////////////////////////////////////////////////////////////
    // I2C -- Slave #3
