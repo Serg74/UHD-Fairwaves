@@ -38,9 +38,12 @@ module time_64bit
    localparam      MIMO_SYNC = 5;
    
    reg [63:0] 	   ticks;
+   reg [63:0]	   s_vita_time;
 
    always @(posedge clk)
-     vita_time <= ticks;
+     s_vita_time <= ticks; //add pipeline register for N210 timing closure.
+     vita_time <= s_vita_time;
+   end
    
    wire [63:0] 	   vita_time_rcvd;
    
@@ -50,6 +53,7 @@ module time_64bit
    wire 	   pps_polarity, pps_source, set_imm;
    reg [1:0] 	   pps_del;
    reg 		   pps_reg_p, pps_reg_n, pps_reg;
+   reg             s_pps_reg_p, s_pps_reg_n;
    wire 	   pps_edge;
 
    reg [15:0] 	   sync_counter;
@@ -79,8 +83,10 @@ module time_64bit
      (.clk(clk),.rst(rst),.strobe(set_stb),.addr(set_addr),
       .in(set_data),.out({mimo_sync,sync_delay}),.changed());
 
-   always @(posedge clk)  pps_reg_p <= pps;   
-   always @(negedge clk)  pps_reg_n <= pps;
+   always @(posedge clk)  s_pps_reg_p <= pps;   
+   always @(posedge clk)  pps_reg_p <= s_pps_reg_p;   
+   always @(negedge clk)  s_pps_reg_n <= pps;
+   always @(negedge clk)  pps_reg_n <= s_pps_reg_n;
    always @* pps_reg <= pps_polarity ? pps_reg_p : pps_reg_n;
    
    always @(posedge clk)
