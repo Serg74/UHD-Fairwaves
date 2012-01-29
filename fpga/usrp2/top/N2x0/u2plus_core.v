@@ -461,7 +461,7 @@ module u2plus_core
         .clock(dsp_clk), .reset(dsp_rst),
         .set_stb(set_stb_dsp), .set_addr(set_addr_dsp), .set_data(set_data_dsp),
         .readback(spi_readback), .ready(spi_ready),
-        .sen({sen_dac, sen_lms1, sen_lms2}),
+        .sen({sen_dac, sen_lms2, sen_lms1}),
         .sclk(sclk), .mosi(mosi), .miso(miso), .debug(spi_debug)
     );
 `endif // !`ifndef UMTRX
