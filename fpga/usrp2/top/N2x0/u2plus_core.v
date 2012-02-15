@@ -22,6 +22,9 @@
 module u2plus_core
   (// Clocks
    input dsp_clk,
+`ifdef LMS602D_FRONTEND
+   input lms_clk,
+`endif // !`ifdef LMS602D_FRONTEND
    input wb_clk,
    input clk_icap, //ICAP timing fixes for UmTRX Spartan-6 FPGA.
    output clock_ready,
@@ -549,6 +552,15 @@ module u2plus_core
      (.clk_i(wb_clk), .rst_i(wb_rst), .set_stb_i(set_stb), .set_addr_i(set_addr), .set_data_i(set_data),
       .clk_o(dsp_clk), .rst_o(dsp_rst), .set_stb_o(set_stb_dsp0), .set_addr_o(set_addr_dsp0), .set_data_o(set_data_dsp0),
       .blocked(set_stb_dsp1));
+`ifdef LMS_DSP
+   wire [7:0] 	set_addr_dsp_low;
+   wire [31:0] set_data_dsp_low;
+   wire set_stb_dsp_low;
+   settings_bus_crossclock #(.FLOW_CTRL(1/*on*/)) settings_bus_dsp_crossclock
+     (.clk_i(wb_clk), .rst_i(wb_rst), .set_stb_i(set_stb), .set_addr_i(set_addr), .set_data_i(set_data),
+      .clk_o(lms_clk), .rst_o(), .set_stb_o(set_stb_dsp_low), .set_addr_o(set_addr_dsp_low), .set_data_o(set_data_dsp_low),
+      .blocked(set_stb_dsp1));
+`endif // !`ifdef LMS_DSP
 
    user_settings #(.BASE(SR_USER_REGS)) user_settings
      (.clk(dsp_clk),.rst(dsp_rst),.set_stb(set_stb_dsp),
@@ -669,6 +681,11 @@ module u2plus_core
    
    rx_frontend #(.BASE(SR_RX_FRONT)) rx_frontend
      (.clk(dsp_clk),.rst(dsp_rst),
+`ifndef LMS_DSP
+     .adc_clk(dsp_clk),
+`else
+     .adc_clk(lms_clk),
+`endif // !`ifndef LMS_DSP
       .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
 `ifndef NO_LMS
       .adc_a({adc_a,2'b00}),.adc_ovf_a(adc_ovf_a),
@@ -689,6 +706,11 @@ module u2plus_core
    
    ddc_chain #(.BASE(SR_RX_DSP0), .DSPNO(0)) ddc_chain0
      (.clk(dsp_clk), .rst(dsp_rst), .clr(clear_rx0),
+`ifndef LMS_DSP
+      .adc_clk(dsp_clk),
+`else
+      .adc_clk(lms_clk),
+`endif // !`ifndef LMS_DSP
       .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
       .set_stb_user(set_stb_user), .set_addr_user(set_addr_user), .set_data_user(set_data_user),
       .rx_fe_i(rx_fe_i),.rx_fe_q(rx_fe_q),
@@ -714,6 +736,11 @@ module u2plus_core
    
    ddc_chain #(.BASE(SR_RX_DSP1), .DSPNO(1)) ddc_chain1
      (.clk(dsp_clk), .rst(dsp_rst), .clr(clear_rx1),
+`ifndef LMS_DSP
+      .adc_clk(dsp_clk),
+`else
+      .adc_clk(lms_clk),
+`endif // !`ifndef LMS_DSP
       .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
       .set_stb_user(set_stb_user), .set_addr_user(set_addr_user), .set_data_user(set_data_user),
       .rx_fe_i(rx_fe_i),.rx_fe_q(rx_fe_q),
@@ -749,6 +776,11 @@ module u2plus_core
      ext_fifo_i1
        (.int_clk(dsp_clk),
 	.ext_clk(dsp_clk),
+`ifndef LMS_DSP
+     .dac_clk(dsp_clk),
+`else
+     .dac_clk(lms_clk),
+`endif // !`ifndef LMS_DSP
 	.rst(dsp_rst | clear_tx),
 `ifndef NO_EXT_FIFO
 	.RAM_D_pi(RAM_D_pi),
@@ -790,7 +822,13 @@ module u2plus_core
 		   .DSP_NUMBER(0))
    vita_tx_chain
      (.clk(dsp_clk), .reset(dsp_rst),
+`ifndef LMS_DSP
+      .dac_clk(dsp_clk),
       .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
+`else
+      .dac_clk(lms_clk),
+      .set_stb(set_stb_dsp_low),.set_addr(set_addr_dsp_low),.set_data(set_data_dsp_low),
+`endif // !`ifndef LMS_DSP
       .set_stb_user(set_stb_user), .set_addr_user(set_addr_user), .set_data_user(set_data_user),
       .vita_time(vita_time),
       .tx_data_i(tx_data), .tx_src_rdy_i(tx_src_rdy), .tx_dst_rdy_o(tx_dst_rdy),
@@ -800,16 +838,28 @@ module u2plus_core
       .debug(debug_vt));
 
    duc_chain #(.BASE(SR_TX_DSP), .DSPNO(0)) duc_chain
-     (.clk(dsp_clk),.rst(dsp_rst), .clr(clear_tx),
+     (
+`ifndef LMS_DSP
+      .clk(dsp_clk),.rst(dsp_rst), .clr(clear_tx),
       .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
+`else
+      .clk(lms_clk),.rst(dsp_rst), .clr(clear_tx),
+      .set_stb(set_stb_dsp_low),.set_addr(set_addr_dsp_low),.set_data(set_data_dsp_low),
+`endif // !`ifndef LMS_DSP
       .set_stb_user(set_stb_user), .set_addr_user(set_addr_user), .set_data_user(set_data_user),
       .tx_fe_i(tx_fe_i),.tx_fe_q(tx_fe_q),
       .sample(sample_tx), .run(run_tx), .strobe(strobe_tx),
       .debug() );
 
    tx_frontend #(.BASE(SR_TX_FRONT)) tx_frontend
-     (.clk(dsp_clk), .rst(dsp_rst),
+     (
+`ifndef LMS_DSP
+      .clk(dsp_clk), .rst(dsp_rst),
       .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
+`else
+      .clk(lms_clk), .rst(dsp_rst),
+      .set_stb(set_stb_dsp_low),.set_addr(set_addr_dsp_low),.set_data(set_data_dsp_low),
+`endif // !`ifndef LMS_DSP
       .tx_i(tx_fe_i), .tx_q(tx_fe_q), .run(1'b1),
       .dac_a(dac_a), .dac_b(dac_b));
 

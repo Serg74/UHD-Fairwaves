@@ -43,18 +43,18 @@ module tx_frontend
 	begin
 	   // IQ Balance
 	   MULT18X18S mult_mag_corr
-	     (.P(corr_i), .A(tx_i[23:6]), .B(mag_corr), .C(clk), .CE(1), .R(rst) ); 
+	     (.P(corr_i), .A(tx_i[23:6]), .B(mag_corr), .C(clk), .CE(1), .R(rst) );
 	   
 	   MULT18X18S mult_phase_corr
 	     (.P(corr_q), .A(tx_i[23:6]), .B(phase_corr), .C(clk), .CE(1), .R(rst) );
 	   
 	   add2_and_clip_reg #(.WIDTH(24)) add_clip_i
-	     (.clk(clk), .rst(rst), 
+	     (.clk(clk), .rst(rst),
 	      .in1(tx_i), .in2(corr_i[35:12]), .strobe_in(1'b1),
 	      .sum(i_bal), .strobe_out());
 	   
 	   add2_and_clip_reg #(.WIDTH(24)) add_clip_q
-	     (.clk(clk), .rst(rst), 
+	     (.clk(clk), .rst(rst),
 	      .in1(tx_q), .in2(corr_q[35:12]), .strobe_in(1'b1),
 	      .sum(q_bal), .strobe_out());
 

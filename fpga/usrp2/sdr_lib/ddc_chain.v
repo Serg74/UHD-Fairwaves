@@ -24,6 +24,7 @@ module ddc_chain
     parameter WIDTH = 24
   )
   (input clk, input rst, input clr,
+   input adc_clk,
    input set_stb, input [7:0] set_addr, input [31:0] set_data,
    input set_stb_user, input [7:0] set_addr_user, input [31:0] set_data_user,
 
@@ -78,7 +79,7 @@ module ddc_chain
 
    // MUX so we can do realmode signals on either input
    
-   always @(posedge clk)
+   always @(posedge adc_clk)
      if(swap_iq)
        begin
 	  rx_fe_i_mux <= rx_fe_q;
@@ -91,7 +92,7 @@ module ddc_chain
        end
 
    // NCO
-   always @(posedge clk)
+   always @(posedge adc_clk)
      if(rst)
        phase <= 0;
      else if(~ddc_enb)
@@ -107,61 +108,61 @@ module ddc_chain
 
    // CORDIC  24-bit I/O
    cordic_z24 #(.bitwidth(cwidth))
-     cordic(.clock(clk), .reset(rst), .enable(ddc_enb),
+     cordic(.clock(adc_clk), .reset(rst), .enable(ddc_enb),
 	    .xi(to_cordic_i),. yi(to_cordic_q), .zi(phase[31:32-zwidth]),
 	    .xo(i_cordic),.yo(q_cordic),.zo() );
 
    clip_reg #(.bits_in(cwidth), .bits_out(WIDTH)) clip_i
-     (.clk(clk), .in(i_cordic), .strobe_in(1'b1), .out(i_cordic_clip));
+     (.clk(adc_clk), .in(i_cordic), .strobe_in(1'b1), .out(i_cordic_clip));
    clip_reg #(.bits_in(cwidth), .bits_out(WIDTH)) clip_q
-     (.clk(clk), .in(q_cordic), .strobe_in(1'b1), .out(q_cordic_clip));
+     (.clk(adc_clk), .in(q_cordic), .strobe_in(1'b1), .out(q_cordic_clip));
 
    // CIC decimator  24 bit I/O
    cic_strober cic_strober(.clock(clk),.reset(rst),.enable(ddc_enb),.rate(cic_decim_rate),
 			   .strobe_fast(1),.strobe_slow(strobe_cic) );
 
    cic_decim #(.bw(WIDTH))
-     decim_i (.clock(clk),.reset(rst),.enable(ddc_enb),
+     decim_i (.clock(adc_clk),.reset(rst),.enable(ddc_enb),
 	      .rate(cic_decim_rate),.strobe_in(1'b1),.strobe_out(strobe_cic),
 	      .signal_in(i_cordic_clip),.signal_out(i_cic));
    
    cic_decim #(.bw(WIDTH))
-     decim_q (.clock(clk),.reset(rst),.enable(ddc_enb),
+     decim_q (.clock(adc_clk),.reset(rst),.enable(ddc_enb),
 	      .rate(cic_decim_rate),.strobe_in(1'b1),.strobe_out(strobe_cic),
 	      .signal_in(q_cordic_clip),.signal_out(q_cic));
 
    // First (small) halfband  24 bit I/O
    small_hb_dec #(.WIDTH(WIDTH)) small_hb_i
-     (.clk(clk),.rst(rst),.bypass(~enable_hb1),.run(ddc_enb),
+     (.clk(adc_clk),.rst(rst),.bypass(~enable_hb1),.run(ddc_enb),
       .stb_in(strobe_cic),.data_in(i_cic),.stb_out(strobe_hb1),.data_out(i_hb1));
    
    small_hb_dec #(.WIDTH(WIDTH)) small_hb_q
-     (.clk(clk),.rst(rst),.bypass(~enable_hb1),.run(ddc_enb),
+     (.clk(adc_clk),.rst(rst),.bypass(~enable_hb1),.run(ddc_enb),
       .stb_in(strobe_cic),.data_in(q_cic),.stb_out(),.data_out(q_hb1));
 
    // Second (large) halfband  24 bit I/O
    wire [8:0]  cpi_hb = enable_hb1 ? {cic_decim_rate,1'b0} : {1'b0,cic_decim_rate};
    hb_dec #(.WIDTH(WIDTH)) hb_i
-     (.clk(clk),.rst(rst),.bypass(~enable_hb2),.run(ddc_enb),.cpi(cpi_hb),
+     (.clk(adc_clk),.rst(rst),.bypass(~enable_hb2),.run(ddc_enb),.cpi(cpi_hb),
       .stb_in(strobe_hb1),.data_in(i_hb1),.stb_out(strobe_hb2),.data_out(i_hb2));
 
    hb_dec #(.WIDTH(WIDTH)) hb_q
-     (.clk(clk),.rst(rst),.bypass(~enable_hb2),.run(ddc_enb),.cpi(cpi_hb),
+     (.clk(adc_clk),.rst(rst),.bypass(~enable_hb2),.run(ddc_enb),.cpi(cpi_hb),
       .stb_in(strobe_hb1),.data_in(q_hb1),.stb_out(),.data_out(q_hb2));
 
    //scalar operation (gain of 6 bits)
    wire [35:0] prod_i, prod_q;
 
    MULT18X18S mult_i
-     (.P(prod_i), .A(i_hb2[WIDTH-1:WIDTH-18]), .B(scale_factor), .C(clk), .CE(strobe_hb2), .R(rst) );
+     (.P(prod_i), .A(i_hb2[WIDTH-1:WIDTH-18]), .B(scale_factor), .C(adc_clk), .CE(strobe_hb2), .R(rst) );
    MULT18X18S mult_q
-     (.P(prod_q), .A(q_hb2[WIDTH-1:WIDTH-18]), .B(scale_factor), .C(clk), .CE(strobe_hb2), .R(rst) );
+     (.P(prod_q), .A(q_hb2[WIDTH-1:WIDTH-18]), .B(scale_factor), .C(adc_clk), .CE(strobe_hb2), .R(rst) );
 
    //pipeline for the multiplier (gain of 10 bits)
    reg [WIDTH-1:0] prod_reg_i, prod_reg_q;
    reg strobe_mult;
 
-   always @(posedge clk) begin
+   always @(posedge adc_clk) begin
        strobe_mult <= strobe_hb2;
        prod_reg_i <= prod_i[33:34-WIDTH];
        prod_reg_q <= prod_q[33:34-WIDTH];
@@ -169,13 +170,33 @@ module ddc_chain
 
    // Round final answer to 16 bits
    wire [31:0] ddc_chain_out;
+`ifndef LMS_DSP	
    wire ddc_chain_stb;
+`else
+   reg ddc_chain_stb;
+`endif // !`ifndef LMS_DSP
 
+`ifndef LMS_DSP
    round_sd #(.WIDTH_IN(WIDTH),.WIDTH_OUT(16)) round_i
-     (.clk(clk),.reset(rst), .in(prod_reg_i),.strobe_in(strobe_mult), .out(ddc_chain_out[31:16]), .strobe_out(ddc_chain_stb));
+     (.clk(adc_clk),.reset(rst), .in(prod_reg_i),.strobe_in(strobe_mult), .out(ddc_chain_out[31:16]), .strobe_out(ddc_chain_stb));
+`else
+   wire ddc_chain_stb_buf;
+   round_sd #(.WIDTH_IN(WIDTH),.WIDTH_OUT(16)) round_i
+     (.clk(adc_clk),.reset(rst), .in(prod_reg_i),.strobe_in(strobe_mult), .out(ddc_chain_out[31:16]), .strobe_out(ddc_chain_stb_buf));
+
+   reg [1:0] find_rise_edge = 0;
+   always @(posedge clk)
+     find_rise_edge  <= {find_rise_edge[0], ddc_chain_stb_buf};
+
+   always @(posedge clk)	
+     if(find_rise_edge==2'b01)	
+       ddc_chain_stb = ddc_chain_stb_buf;
+     else
+       ddc_chain_stb = 1'b0;
+`endif // !`ifndef LMS_DSP
 
    round_sd #(.WIDTH_IN(WIDTH),.WIDTH_OUT(16)) round_q
-     (.clk(clk),.reset(rst), .in(prod_reg_q),.strobe_in(strobe_mult), .out(ddc_chain_out[15:0]), .strobe_out());
+     (.clk(adc_clk),.reset(rst), .in(prod_reg_q),.strobe_in(strobe_mult), .out(ddc_chain_out[15:0]), .strobe_out());
 
    dsp_rx_glue #(.DSPNO(DSPNO), .WIDTH(WIDTH)) custom(
     .clock(clk), .reset(rst), .clear(clr), .enable(run),

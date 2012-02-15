@@ -26,6 +26,7 @@ module vita_tx_chain
     parameter USE_TRANS_HEADER=0,
     parameter DSP_NUMBER=0)
    (input clk, input reset,
+    input dac_clk,
     input set_stb, input [7:0] set_addr, input [31:0] set_data,
     input set_stb_user, input [7:0] set_addr_user, input [31:0] set_data_user,
     input [63:0] vita_time,
@@ -55,18 +56,18 @@ module vita_tx_chain
    assign message = error_code;
 
    setting_reg #(.my_addr(BASE+0), .width(1)) sr
-     (.clk(clk),.rst(reset),.strobe(set_stb),.addr(set_addr),
+     (.clk(dac_clk),.rst(reset),.strobe(set_stb),.addr(set_addr),
       .in(set_data),.out(flush),.changed(clear));
 
    setting_reg #(.my_addr(BASE+2), .at_reset(0)) sr_streamid
-     (.clk(clk),.rst(reset),.strobe(set_stb),.addr(set_addr),
+     (.clk(dac_clk),.rst(reset),.strobe(set_stb),.addr(set_addr),
       .in(set_data),.out(streamid),.changed(clear_seqnum));
 
     //flush control - full rate vacuum of input until flush cleared
     wire tx_dst_rdy_int, tx_src_rdy_int;
     wire [35:0] tx_data_int;
     valve36 flusher_valve
-    (.clk(clk), .reset(reset), .clear(clear & flush), .shutoff(flush),
+    (.clk(dac_clk), .reset(reset), .clear(clear & flush), .shutoff(flush),
      .data_i(tx_data_i), .src_rdy_i(tx_src_rdy_i), .dst_rdy_o(tx_dst_rdy_o),
      .data_o(tx_data_int), .src_rdy_o(tx_src_rdy_int), .dst_rdy_i(tx_dst_rdy_int));
 
@@ -87,7 +88,7 @@ module vita_tx_chain
        wire tx_src_rdy_int0, tx_dst_rdy_int0;
 
        double_buffer #(.BUF_SIZE(FIFOSIZE)) db
-         (.clk(clk),.reset(reset),.clear(clear),
+         (.clk(dac_clk),.reset(reset),.clear(clear),
           .access_we(access_we), .access_stb(access_stb), .access_ok(access_ok), .access_done(access_done),
           .access_skip_read(access_skip_read), .access_adr(access_adr), .access_len(access_len),
           .access_dat_i(dsp_to_buf), .access_dat_o(buf_to_dsp),
@@ -104,7 +105,7 @@ module vita_tx_chain
           .access_dat_i(buf_to_dsp), .access_dat_o(dsp_to_buf));
 
        fifo_cascade #(.WIDTH(36), .SIZE(POST_ENGINE_FIFOSIZE)) post_engine_buffering(
-        .clk(clk), .reset(reset), .clear(clear),
+        .clk(dac_clk), .reset(reset), .clear(clear),
         .datain(tx_data_int0), .src_rdy_i(tx_src_rdy_int0), .dst_rdy_o(tx_dst_rdy_int0),
         .dataout(tx_data_int1), .src_rdy_o(tx_src_rdy_int1), .dst_rdy_i(tx_dst_rdy_int1));
 
@@ -115,7 +116,7 @@ module vita_tx_chain
 		      .MAXCHAN(MAXCHAN), 
 		      .USE_TRANS_HEADER(USE_TRANS_HEADER)) 
    vita_tx_deframer
-     (.clk(clk), .reset(reset), .clear(clear), .clear_seqnum(clear_seqnum),
+     (.clk(dac_clk), .reset(reset), .clear(clear), .clear_seqnum(clear_seqnum),
       .set_stb(set_stb),.set_addr(set_addr),.set_data(set_data),
       .data_i(tx_data_int1), .src_rdy_i(tx_src_rdy_int1), .dst_rdy_o(tx_dst_rdy_int1),
       .sample_fifo_o(tx1_data), .sample_fifo_src_rdy_o(tx1_src_rdy), .sample_fifo_dst_rdy_i(tx1_dst_rdy),
@@ -124,6 +125,7 @@ module vita_tx_chain
 
    vita_tx_control #(.BASE(BASE), .WIDTH(32*MAXCHAN)) vita_tx_control
      (.clk(clk), .reset(reset), .clear(clear),
+      .dac_clk(dac_clk),
       .set_stb(set_stb),.set_addr(set_addr),.set_data(set_data),
       .vita_time(vita_time), .error(error), .ack(ack), .error_code(error_code),
       .sample_fifo_i(tx1_data), .sample_fifo_src_rdy_i(tx1_src_rdy), .sample_fifo_dst_rdy_o(tx1_dst_rdy),
