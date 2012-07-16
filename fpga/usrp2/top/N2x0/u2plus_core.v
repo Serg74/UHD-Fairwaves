@@ -118,14 +118,13 @@ module u2plus_core
    output [1:0] lms_res,
 `endif // !`ifndef LMS602D_FRONTEND
    
-`ifndef LMS602D_FRONTEND
    // DAC
    output [15:0] dac_a,
    output [15:0] dac_b,
-`else
-   output [11:0] dac_a,
-   output [11:0] dac_b,
-`endif // !`ifndef LMS602D_FRONTEND
+`ifdef LMS602D_FRONTEND
+   output [11:0] dac1_a,
+   output [11:0] dac1_b,
+`endif // !`ifdef LMS602D_FRONTEND
 
 
    // I2C
@@ -209,9 +208,18 @@ module u2plus_core
    localparam SR_RX_CTRL1 =  80;   // 9
    localparam SR_RX_DSP1  =  96;   // 7
 
+`ifndef LMS602D_FRONTEND
    localparam SR_TX_FRONT = 128;   // ?
    localparam SR_TX_CTRL  = 144;   // 6
    localparam SR_TX_DSP   = 160;   // 5
+`else
+   localparam SR_TX_FRONT = 110;   // ?
+   localparam SR_TX_CTRL  = 126;   // 6
+   localparam SR_TX_DSP   = 135;   // 5
+   localparam SR_TX1_FRONT = 145;   // ?
+   localparam SR_TX1_CTRL  = 161;   // 6
+   localparam SR_TX1_DSP   = 170;   // 5
+`endif // !`ifndef LMS602D_FRONTEND
 
    localparam SR_DIVSW    = 180;   // 2
    localparam SR_GPIO     = 184;   // 5   
@@ -237,6 +245,9 @@ module u2plus_core
    wire [31:0] 	status;
    wire 	bus_error, spi_int, i2c_int, pps_int, onetime_int, periodic_int, buffer_int;
    wire 	proc_int, overrun0, overrun1, underrun;
+`ifdef LMS602D_FRONTEND
+   wire 	 underrun1;
+`endif // !`ifdef LMS602D_FRONTEND
    wire [3:0] 	uart_tx_int, uart_rx_int;
 
    wire [31:0] 	debug_gpio_0, debug_gpio_1;
@@ -254,6 +265,9 @@ module u2plus_core
    wire [63:0] 	vita_time, vita_time_pps;
    
    wire 	 run_rx0, run_rx1, run_tx;
+`ifdef LMS602D_FRONTEND
+   wire 	 run_tx1;
+`endif // !`ifdef LMS602D_FRONTEND
    reg 		 run_rx0_d1, run_rx1_d1;
    
    // ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -419,6 +433,9 @@ module u2plus_core
    // Buffer Pool, slave #1
    wire 	 rd0_ready_i, rd0_ready_o;
    wire 	 rd1_ready_i, rd1_ready_o;
+`ifdef LMS602D_FRONTEND
+   wire 	 rd1_ready_i_1, rd1_ready_o_1;
+`endif // !`ifdef LMS602D_FRONTEND
    wire 	 rd2_ready_i, rd2_ready_o;
    wire 	 rd3_ready_i, rd3_ready_o;
    wire [35:0] 	 rd0_dat, rd1_dat, rd2_dat, rd3_dat;
@@ -435,6 +452,10 @@ module u2plus_core
 
    wire [35:0] 	 tx_err_data;
    wire 	 tx_err_src_rdy, tx_err_dst_rdy;
+`ifdef LMS602D_FRONTEND
+   wire [35:0] 	 tx1_err_data;
+   wire 	 tx1_err_src_rdy, tx1_err_dst_rdy;
+`endif // !`ifdef LMS602D_FRONTEND
 
    wire [31:0] router_debug;
 
@@ -458,6 +479,10 @@ module u2plus_core
 
       .ser_out_data(rd0_dat), .ser_out_valid(rd0_ready_o), .ser_out_ready(rd0_ready_i),
       .dsp_out_data(rd1_dat), .dsp_out_valid(rd1_ready_o), .dsp_out_ready(rd1_ready_i),
+`ifdef LMS602D_FRONTEND
+      .dsp1_out_valid(rd1_ready_o_1), .dsp1_out_ready(rd1_ready_i_1),
+      .err_inp1_data(tx1_err_data), .err_inp1_ready(tx1_err_dst_rdy), .err_inp1_valid(tx1_err_src_rdy),
+`endif // !`ifdef LMS602D_FRONTEND
       .ctl_out_data(sfc_rd_data), .ctl_out_valid(sfc_rd_valid), .ctl_out_ready(sfc_rd_ready),
       .eth_out_data(rd2_dat), .eth_out_valid(rd2_ready_o), .eth_out_ready(rd2_ready_i)
       );
@@ -505,7 +530,11 @@ module u2plus_core
    gpio_atr #(.BASE(SR_GPIO), .WIDTH(32)) 
    gpio_atr(.clk(dsp_clk),.reset(dsp_rst),
 	    .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
+`ifndef LMS602D_FRONTEND
 	    .rx(run_rx0_d1 | run_rx1_d1), .tx(run_tx),
+`else
+	    .rx(run_rx0_d1 | run_rx1_d1), .tx(run_tx | run_tx1),
+`endif // !`ifndef LMS602D_FRONTEND
 	    .gpio({io_tx,io_rx}), .gpio_readback(gpio_readback) );
 
    // /////////////////////////////////////////////////////////////////////////
@@ -647,7 +676,11 @@ module u2plus_core
    //    In Rev3 there are only 6 leds, and the highest one is on the ETH connector
    
    wire [7:0] 	 led_src, led_sw;
+`ifndef LMS602D_FRONTEND
    wire [7:0] 	 led_hw = {run_tx, (run_rx0_d1 | run_rx1_d1), clk_status, serdes_link_up & good_sync, 1'b0};
+`else
+   wire [7:0] 	 led_hw = {(run_tx | run_tx1), (run_rx0_d1 | run_rx1_d1), clk_status, serdes_link_up & good_sync, 1'b0};
+`endif // !`ifndef LMS602D_FRONTEND
    
    setting_reg #(.my_addr(SR_MISC+3),.width(8)) sr_led
      (.clk(dsp_clk),.rst(dsp_rst),.strobe(set_stb_dsp),.addr(set_addr_dsp),.in(set_data_dsp),.out(led_sw),.changed());
@@ -826,6 +859,10 @@ module u2plus_core
 
    wire [35:0] 	 tx_data;
    wire 	 tx_src_rdy, tx_dst_rdy;
+`ifdef LMS602D_FRONTEND
+   wire [35:0] 	 tx_data_1;
+   wire 	 tx_src_rdy_1, tx_dst_rdy_1;
+`endif // !`ifdef LMS602D_FRONTEND
    wire [31:0] 	 debug_vt;
    wire 	 clear_tx;
 
@@ -834,10 +871,10 @@ module u2plus_core
       .in(set_data_dsp),.out(),.changed(clear_tx));
 
 `ifndef NO_EXT_FIFO
-   assign 	 RAM_A[20:18] = 3'b0;
+   assign 	 RAM_A[20:19] = 2'b0;
 `endif // !`ifndef NO_EXT_FIFO
    
-   ext_fifo #(.EXT_WIDTH(36),.INT_WIDTH(36),.RAM_DEPTH(18),.FIFO_DEPTH(18)) 
+   ext_fifo #(.EXT_WIDTH(36),.INT_WIDTH(36),.RAM_DEPTH(19),.FIFO_DEPTH(19)) 
      ext_fifo_i1
        (.int_clk(dsp_clk),
 	.ext_clk(dsp_clk),
@@ -851,7 +888,7 @@ module u2plus_core
 	.RAM_D_pi(RAM_D_pi),
 	.RAM_D_po(RAM_D_po),
 	.RAM_D_poe(RAM_D_poe),
-	.RAM_A(RAM_A[17:0]),
+	.RAM_A(RAM_A[18:0]),
 	.RAM_WEn(RAM_WEn),
 	.RAM_CENn(RAM_CENn),
 	.RAM_LDn(RAM_LDn),
@@ -874,9 +911,18 @@ module u2plus_core
 	.dataout(tx_data),
 	.src_rdy_o(tx_src_rdy),
 	.dst_rdy_i(tx_dst_rdy),
+`ifdef LMS602D_FRONTEND
+	.src1_rdy_i(rd1_ready_o_1),
+	.dst1_rdy_o(rd1_ready_i_1),
+	.src1_rdy_o(tx_src_rdy_1),
+	.dst1_rdy_i(tx_dst_rdy_1),
+	.dataout_1(tx_data_1),
+`endif // !`ifdef LMS602D_FRONTEND
 	.debug(debug_extfifo),
 	.debug2(debug_extfifo2) );
 
+   // /////////////////////////////////////////////////////////////////////////
+   // DSP TX 0
    wire [23:0] 	 tx_fe_i, tx_fe_q;
    wire [31:0]   sample_tx;
    wire strobe_tx;
@@ -927,6 +973,59 @@ module u2plus_core
 `endif // !`ifndef LMS_DSP
       .tx_i(tx_fe_i), .tx_q(tx_fe_q), .run(1'b1),
       .dac_a(dac_a), .dac_b(dac_b));
+
+   // /////////////////////////////////////////////////////////////////////////
+   // DSP TX 1
+   wire [23:0] 	 tx_fe_i_1, tx_fe_q_1;
+   wire [31:0]   sample_tx_1;
+   wire strobe_tx_1;
+   
+   vita_tx_chain #(.BASE(SR_TX1_CTRL), .FIFOSIZE(DSP_TX_FIFOSIZE),
+		   .REPORT_ERROR(1), .DO_FLOW_CONTROL(1),
+		   .PROT_ENG_FLAGS(1), .USE_TRANS_HEADER(1),
+		   .DSP_NUMBER(1))
+   vita_tx_chain
+     (.clk(dsp_clk), .reset(dsp_rst),
+`ifndef LMS_DSP
+      .dac_clk(dsp_clk),
+      .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
+`else
+      .dac_clk(lms_clk),
+      .set_stb(set_stb_dsp_low),.set_addr(set_addr_dsp_low),.set_data(set_data_dsp_low),
+`endif // !`ifndef LMS_DSP
+      .set_stb_user(set_stb_user), .set_addr_user(set_addr_user), .set_data_user(set_data_user),
+      .vita_time(vita_time),
+      .tx_data_i(tx_data_1), .tx_src_rdy_i(tx_src_rdy_1), .tx_dst_rdy_o(tx_dst_rdy_1),
+      .err_data_o(tx1_err_data), .err_src_rdy_o(tx1_err_src_rdy), .err_dst_rdy_i(tx1_err_dst_rdy),
+      .sample(sample_tx_1), .strobe(strobe_tx_1),
+      .underrun(underrun1), .run(run_tx1), .clear_o(clear_tx),
+      .debug());
+
+   duc_chain #(.BASE(SR_TX1_DSP), .DSPNO(1)) duc_chain
+     (
+`ifndef LMS_DSP
+      .clk(dsp_clk),.rst(dsp_rst), .clr(clear_tx),
+      .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
+`else
+      .clk(lms_clk),.rst(dsp_rst), .clr(clear_tx),
+      .set_stb(set_stb_dsp_low),.set_addr(set_addr_dsp_low),.set_data(set_data_dsp_low),
+`endif // !`ifndef LMS_DSP
+      .set_stb_user(set_stb_user), .set_addr_user(set_addr_user), .set_data_user(set_data_user),
+      .tx_fe_i(tx_fe_i_1),.tx_fe_q(tx_fe_q_1),
+      .sample(sample_tx_1), .run(run_tx1), .strobe(strobe_tx_1),
+      .debug() );
+
+   tx_frontend #(.BASE(SR_TX_FRONT)) tx_frontend
+     (
+`ifndef LMS_DSP
+      .clk(dsp_clk), .rst(dsp_rst),
+      .set_stb(set_stb_dsp),.set_addr(set_addr_dsp),.set_data(set_data_dsp),
+`else
+      .clk(lms_clk), .rst(dsp_rst),
+      .set_stb(set_stb_dsp_low),.set_addr(set_addr_dsp_low),.set_data(set_data_dsp_low),
+`endif // !`ifndef LMS_DSP
+      .tx_i(tx_fe_i_1), .tx_q(tx_fe_q_1), .run(1'b1),
+      .dac_a(dac1_a), .dac_b(dac1_b));
 
    // ///////////////////////////////////////////////////////////////////////////////////
    // SERDES
