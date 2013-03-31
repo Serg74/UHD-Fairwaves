@@ -168,6 +168,13 @@ module u2plus_core
    input aux_sda_pad_i,
    output aux_sda_pad_o,
    output aux_sda_pad_oen_o,
+   //AUX SPI
+   output aux_sdat,
+   output aux_sclk,
+   output aux_sen1,
+   output aux_sen2,
+   input aux_ld1,
+   input aux_ld2, 
 `endif // !`ifndef UMTRX
    
    // GPIO to DBoards
@@ -509,11 +516,11 @@ module u2plus_core
         .sclk(sclk), .mosi(mosi), .miso(miso), .debug(spi_debug)
     );
 `else
-    simple_spi_core #(.BASE(SR_SPI_CORE), .WIDTH(3)) shared_spi(
+    simple_spi_core #(.BASE(SR_SPI_CORE), .WIDTH(5)) shared_spi(
         .clock(dsp_clk), .reset(dsp_rst),
         .set_stb(set_stb_dsp), .set_addr(set_addr_dsp), .set_data(set_data_dsp),
         .readback(spi_readback), .ready(spi_ready),
-        .sen({sen_dac, sen_lms2, sen_lms1}),
+        .sen({aux_sen2,aux_sen1,sen_dac, sen_lms2, sen_lms1}),
         .sclk(sclk), .mosi(mosi), .miso(miso), .debug(spi_debug)
     );
 `endif // !`ifndef UMTRX
