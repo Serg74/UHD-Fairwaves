@@ -567,7 +567,7 @@ module u2plus_core
    //compatibility number -> increment when the fpga has been sufficiently altered
    localparam compat_num = {16'd10, 16'd0}; //major, minor
 
-   wire [31:0] irq_readback = {18'b0, button, spi_ready, clk_status, serdes_link_up, 10'b0};
+   wire [31:0] irq_readback = {16'b0, aux_ld2, aux_ld1, button, spi_ready, clk_status, serdes_link_up, 10'b0};
 
    wb_readback_mux buff_pool_status
      (.wb_clk_i(wb_clk), .wb_rst_i(wb_rst), .wb_stb_i(s5_stb),
