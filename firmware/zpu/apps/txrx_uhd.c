@@ -199,6 +199,10 @@ static void handle_udp_ctrl_packet(
                 (ctrl_data_in->data.spi_args.miso_edge == USRP2_CLK_EDGE_RISE)? SPIF_LATCH_RISE : SPIF_LATCH_FALL
             );
 
+            if (ctrl_data_in->data.spi_args.dev == SPI_SS_AUX1 || ctrl_data_in->data.spi_args.dev == SPI_SS_AUX2) {
+                printf("SPI transact to dev %d data 0x%x num_bits %d\n", ctrl_data_in->data.spi_args.dev, ctrl_data_in->data.spi_args.data, ctrl_data_in->data.spi_args.num_bits);
+            }
+
             //load output
             ctrl_data_out.data.spi_args.data = result;
             ctrl_data_out.id = USRP2_CTRL_ID_OMG_TRANSACTED_SPI_DUDE;
