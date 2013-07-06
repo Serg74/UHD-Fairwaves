@@ -430,10 +430,15 @@ umtrx_impl::umtrx_impl(const device_addr_t &_device_addr)
 
         // LMS dboard do not have physical eeprom so we just hardcode values from host/lib/usrp/dboard/db_lms.cpp
         dboard_eeprom_t rx_db_eeprom, tx_db_eeprom, gdb_eeprom;
-        rx_db_eeprom.id = 0xfa07;
         rx_db_eeprom.revision = _mbc[mb].iface->mb_eeprom["revision"];
-        tx_db_eeprom.id = 0xfa09;
         tx_db_eeprom.revision = _mbc[mb].iface->mb_eeprom["revision"];
+        if (version_4xddc) {
+            rx_db_eeprom.id = 0xfa0a;
+            tx_db_eeprom.id = 0xfa0b;
+        } else {
+            rx_db_eeprom.id = 0xfa07;
+            tx_db_eeprom.id = 0xfa09;
+        }
         //gdb_eeprom.id = 0x0000;
 
         BOOST_FOREACH(const std::string &board, _mbc[mb].dbc.keys()){
