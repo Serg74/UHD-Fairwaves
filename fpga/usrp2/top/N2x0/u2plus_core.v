@@ -908,10 +908,8 @@ module u2plus_core
 `endif // !`ifdef LMS602D_FRONTEND
    wire [31:0] 	 debug_vt;
    wire 	 clear_tx;
+   wire 	 clear_tx_1;
 
-   setting_reg #(.my_addr(SR_TX_CTRL+1)) sr_clear_tx
-     (.clk(dsp_clk),.rst(dsp_rst),.strobe(set_stb_dsp),.addr(set_addr_dsp),
-      .in(set_data_dsp),.out(),.changed(clear_tx));
 
 `ifndef NO_EXT_FIFO
    assign 	 RAM_A[20:19] = 2'b0;
@@ -926,7 +924,7 @@ module u2plus_core
 `else
      .dac_clk(lms_clk),
 `endif // !`ifndef LMS_DSP
-	.rst(dsp_rst | clear_tx),
+	.rst(dsp_rst | clear_tx | clear_tx_1),
 `ifndef NO_EXT_FIFO
 	.RAM_D_pi(RAM_D_pi),
 	.RAM_D_po(RAM_D_po),
@@ -1062,7 +1060,7 @@ module u2plus_core
       .tx_data_i(tx_data_1), .tx_src_rdy_i(tx_src_rdy_1), .tx_dst_rdy_o(tx_dst_rdy_1),
       .err_data_o(tx1_err_data), .err_src_rdy_o(tx1_err_src_rdy), .err_dst_rdy_i(tx1_err_dst_rdy),
       .sample(sample_tx_1), .strobe(strobe_tx_1),
-      .underrun(underrun1), .run(run_tx1), .clear_o(clear_tx),
+      .underrun(underrun1), .run(run_tx1), .clear_o(clear_tx_1),
       .debug());
 
    duc_chain #(.BASE(SR_TX1_DSP), .DSPNO(1)) duc_chain1

@@ -34,6 +34,9 @@ module packet_dispatcher36_x4
         //output stream interfaces:
         output [35:0] ext_out_data, output ext_out_valid, input ext_out_ready,
         output [35:0] dsp_out_data, output dsp_out_valid, input dsp_out_ready,
+`ifdef LMS602D_FRONTEND
+        output dsp1_out_valid, input dsp1_out_ready,
+`endif // !`ifdef LMS602D_FRONTEND
         output [35:0] ctl_out_data, output ctl_out_valid, input ctl_out_ready,
         output [35:0] cpu_out_data, output cpu_out_valid, input cpu_out_ready
     );
@@ -53,6 +56,14 @@ module packet_dispatcher36_x4
         .strobe(set_stb),.addr(set_addr),.in(set_data),
         .out({ctl_udp_port, dsp_udp_port}),.changed()
     );
+`ifdef LMS602D_FRONTEND
+    wire [15:0] dsp1_udp_port;
+    setting_reg #(.my_addr(BASE+3), .width(16)) sreg_data1_port(
+        .clk(clk),.rst(rst),
+        .strobe(set_stb),.addr(set_addr),.in(set_data),
+        .out(dsp1_udp_port),.changed()
+    );
+`endif // !`ifdef LMS602D_FRONTEND
 
     ////////////////////////////////////////////////////////////////////
     // Communication input inspector
@@ -68,6 +79,9 @@ module packet_dispatcher36_x4
     localparam PD_DEST_CPU = 2;
     localparam PD_DEST_BOF = 3;
     localparam PD_DEST_CTL = 4;
+`ifdef LMS602D_FRONTEND
+    localparam PD_DEST_DSP1 = 5;
+`endif // !`ifdef LMS602D_FRONTEND
 
     localparam PD_MAX_NUM_DREGS = 13; //padded_eth + ip + udp + seq + vrt_hdr
     localparam PD_DREGS_DSP_OFFSET = 11; //offset to start dsp at
@@ -76,6 +90,10 @@ module packet_dispatcher36_x4
     wire [35:0] pd_out_dsp_data;
     wire        pd_out_dsp_valid;
     wire        pd_out_dsp_ready;
+`ifdef LMS602D_FRONTEND
+    wire        pd_out_dsp1_valid;
+    wire        pd_out_dsp1_ready;
+`endif // !`ifdef LMS602D_FRONTEND
 
     wire [35:0] pd_out_ext_data;
     wire        pd_out_ext_valid;
@@ -105,6 +123,9 @@ module packet_dispatcher36_x4
     reg is_eth_ipv4_proto_udp;
     reg is_eth_ipv4_dst_addr_here;
     reg is_eth_udp_dsp_port_here;
+`ifdef LMS602D_FRONTEND
+    reg is_eth_udp_dsp1_port_here;
+`endif // !`ifdef LMS602D_FRONTEND
     reg is_eth_udp_ctl_port_here;
     wire is_vrt_size_zero = (com_inp_data[15:0] == 16'h0); //needed on the same cycle, so it cant be registered
 
@@ -112,7 +133,11 @@ module packet_dispatcher36_x4
     //Inject SOF into flags at first DSP line.
     wire [3:0] pd_out_flags = (
         (pd_dreg_count == PD_DREGS_DSP_OFFSET) &&
+`ifndef LMS602D_FRONTEND
         (pd_dest == PD_DEST_DSP)
+`else
+        ((pd_dest == PD_DEST_DSP) || (pd_dest == PD_DEST_DSP1))
+`endif // !`ifndef LMS602D_FRONTEND
     )? 4'b0001 : pd_dregs[pd_dreg_count][35:32];
 
     //The communication inspector ouput data and valid signals:
@@ -127,6 +152,7 @@ module packet_dispatcher36_x4
 
     //The communication inspector ouput ready signal:
     //Mux between the various destination ready signals.
+`ifndef LMS602D_FRONTEND
     wire pd_out_ready =
         (pd_dest == PD_DEST_DSP)? pd_out_dsp_ready : (
         (pd_dest == PD_DEST_EXT)? pd_out_ext_ready : (
@@ -134,6 +160,16 @@ module packet_dispatcher36_x4
         (pd_dest == PD_DEST_BOF)? pd_out_bof_ready : (
         (pd_dest == PD_DEST_CTL)? pd_out_ctl_ready : (
     1'b0)))));
+`else
+    wire pd_out_ready =
+        (pd_dest == PD_DEST_DSP)? pd_out_dsp_ready : (
+        (pd_dest == PD_DEST_DSP1)? pd_out_dsp1_ready : (
+        (pd_dest == PD_DEST_EXT)? pd_out_ext_ready : (
+        (pd_dest == PD_DEST_CPU)? pd_out_cpu_ready : (
+        (pd_dest == PD_DEST_BOF)? pd_out_bof_ready : (
+        (pd_dest == PD_DEST_CTL)? pd_out_ctl_ready : (
+    1'b0))))));
+`endif // !`ifndef LMS602D_FRONTEND
 
     //Always connected output data lines.
     assign pd_out_dsp_data = pd_out_data;
@@ -145,6 +181,9 @@ module packet_dispatcher36_x4
     //Destination output valid signals:
     //Comes from inspector valid when destination is selected, and otherwise low.
     assign pd_out_dsp_valid = (pd_dest == PD_DEST_DSP)? pd_out_valid : 1'b0;
+`ifdef LMS602D_FRONTEND
+    assign pd_out_dsp1_valid = (pd_dest == PD_DEST_DSP1)? pd_out_valid : 1'b0;
+`endif // !`ifdef LMS602D_FRONTEND
     assign pd_out_ext_valid = (pd_dest == PD_DEST_EXT)? pd_out_valid : 1'b0;
     assign pd_out_cpu_valid = (pd_dest == PD_DEST_CPU)? pd_out_valid : 1'b0;
     assign pd_out_bof_valid = (pd_dest == PD_DEST_BOF)? pd_out_valid : 1'b0;
@@ -181,6 +220,9 @@ module packet_dispatcher36_x4
         end
         9: begin
             is_eth_udp_dsp_port_here <= (com_inp_data[15:0] == dsp_udp_port);
+`ifdef LMS602D_FRONTEND
+            is_eth_udp_dsp1_port_here <= (com_inp_data[15:0] == dsp1_udp_port);
+`endif // !`ifdef LMS602D_FRONTEND
             is_eth_udp_ctl_port_here <= (com_inp_data[15:0] == ctl_udp_port);
         end
         endcase //pd_dreg_count
@@ -234,6 +276,13 @@ module packet_dispatcher36_x4
                         pd_dreg_count <= PD_DREGS_DSP_OFFSET;
                     end
 
+`ifdef LMS602D_FRONTEND
+                    else if (is_eth_udp_dsp1_port_here && ~is_vrt_size_zero) begin
+                        pd_dest <= PD_DEST_DSP1;
+                        pd_dreg_count <= PD_DREGS_DSP_OFFSET;
+                    end
+`endif // !`ifdef LMS602D_FRONTEND
+
                     //other:
                     else begin
                         pd_dest <= PD_DEST_CPU;
@@ -276,6 +325,10 @@ module packet_dispatcher36_x4
     assign dsp_out_data = pd_out_dsp_data;
     assign dsp_out_valid = pd_out_dsp_valid;
     assign pd_out_dsp_ready = dsp_out_ready;
+`ifdef LMS602D_FRONTEND
+    assign dsp1_out_valid = pd_out_dsp1_valid;
+    assign pd_out_dsp1_ready = dsp1_out_ready;
+`endif // !`ifdef LMS602D_FRONTEND
 
     assign ctl_out_data = pd_out_ctl_data;
     assign ctl_out_valid = pd_out_ctl_valid;
