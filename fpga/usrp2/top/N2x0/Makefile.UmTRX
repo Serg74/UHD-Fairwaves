@@ -8,6 +8,10 @@
 TOP_MODULE = u2plus_umtrx
 BUILD_DIR = $(abspath build$(ISE)_UmTRX)
 
+# set me in a custom makefile
+CUSTOM_SRCS =
+CUSTOM_DEFS =
+
 ##################################################
 # Include other makefiles
 ##################################################
