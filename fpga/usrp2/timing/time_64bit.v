@@ -41,6 +41,7 @@ module time_64bit
    reg [63:0]	   s_vita_time;
 
    always @(posedge clk)
+   begin
      s_vita_time <= ticks; //add pipeline register for N210 timing closure.
      vita_time <= s_vita_time;
    end
