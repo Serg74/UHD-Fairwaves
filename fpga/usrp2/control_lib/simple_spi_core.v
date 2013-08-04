@@ -205,7 +205,7 @@ module simple_spi_core
     assign debug = {
         trigger_spi, state, //4
         sclk, mosi, miso, ready, //4
-        sen[7:0], //8
+        sen[WIDTH-1:0], //8
         1'b0, bit_counter[6:0], //8
         sclk_counter_done, bit_counter_done, //2
         sclk_counter[5:0] //6
