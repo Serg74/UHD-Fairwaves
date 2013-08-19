@@ -184,15 +184,29 @@ module ddc_chain
    round_sd #(.WIDTH_IN(WIDTH),.WIDTH_OUT(16)) round_i
      (.clk(adc_clk),.reset(rst), .in(prod_reg_i),.strobe_in(strobe_mult), .out(ddc_chain_out[31:16]), .strobe_out(ddc_chain_stb_buf));
 
+   reg count_adc_takt=0;
+   always @(posedge adc_clk)
+      count_adc_takt <= ~count_adc_takt;
+
+   wire no_decim = (cic_decim_rate == 8'd0 || cic_decim_rate == 8'd1) && (enable_hb1 == 0) && (enable_hb2 == 0);
    reg [1:0] find_rise_edge = 0;
    always @(posedge clk)
+   if(no_decim)
+      find_rise_edge  <= {find_rise_edge[0], count_adc_takt};
+   else
      find_rise_edge  <= {find_rise_edge[0], ddc_chain_stb_buf};
 
    always @(posedge clk)	
-     if(find_rise_edge==2'b01)	
-       ddc_chain_stb = ddc_chain_stb_buf;
+      if(no_decim)
+          if(find_rise_edge==2'b01 || find_rise_edge==2'b10)
+             ddc_chain_stb = 1'b1;
+          else
+             ddc_chain_stb = 1'b0;
      else
-       ddc_chain_stb = 1'b0;
+          if(find_rise_edge==2'b01)
+             ddc_chain_stb = 1'b1;
+          else
+             ddc_chain_stb = 1'b0;
 `endif // !`ifndef LMS_DSP
 
    round_sd #(.WIDTH_IN(WIDTH),.WIDTH_OUT(16)) round_q
