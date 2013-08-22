@@ -70,13 +70,22 @@ struct umtrx_impl::io_impl {
         flow_control_monitor &fc_mon = *fc_mons[chan];
 
         //wait on flow control w/ timeout
-        if (not fc_mon.check_fc_condition(timeout)) return managed_send_buffer::sptr();
+        if (not fc_mon.check_fc_condition(timeout)) {
+            std::cerr << boost::format("get_send_buff(chan=%d) in_flight=%d timeout!\n") % chan % fc_mon.num_in_flight();
+            return managed_send_buffer::sptr();
+        }
 
         //get a buffer from the transport w/ timeout
         managed_send_buffer::sptr buff = tx_xports[chan]->get_send_buff(timeout);
 
         //write the flow control word into the buffer
-        if (buff.get()) buff->cast<boost::uint32_t *>()[0] = uhd::htonx(fc_mon.get_curr_seq_out());
+        if (buff.get()) {
+            flow_control_monitor::seq_type seq = fc_mon.get_curr_seq_out();
+            buff->cast<boost::uint32_t *>()[0] = uhd::htonx(seq);
+            std::cerr << boost::format("get_send_buff(chan=%d) in_flight=%d returns seq_out=%d\n") % chan % fc_mon.num_in_flight() % seq;
+        } else {
+            std::cerr << boost::format("get_send_buff(chan=%d) in_flight=%d returns NULL\n") % chan % fc_mon.num_in_flight();
+        }
 
         return buff;
     }
@@ -133,6 +142,7 @@ void umtrx_impl::io_impl::recv_pirate_loop(
                 //catch the flow control packets and react
                 if (metadata.event_code == 0){
                     boost::uint32_t fc_word32 = (vrt_hdr + if_packet_info.num_header_words32)[1];
+                    std::cerr << boost::format("recv_pirate_loop(index=%d) ack_seq=%d)\n") % index % uhd::ntohx(fc_word32);
                     fc_mon.update_fc_condition(uhd::ntohx(fc_word32));
                     continue;
                 }

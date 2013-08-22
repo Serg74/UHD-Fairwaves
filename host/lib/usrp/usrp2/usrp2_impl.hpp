@@ -406,6 +406,14 @@ public:
         _fc_cond.notify_one();
     }
 
+    UHD_INLINE seq_type num_in_flight(){
+        seq_type num;
+        boost::mutex::scoped_lock lock(_fc_mutex);
+        num = seq_type(_last_seq_out -_last_seq_ack);
+        lock.unlock();
+        return num;
+    }
+
 private:
     bool ready(void){
         return seq_type(_last_seq_out -_last_seq_ack) < _max_seqs_out;
