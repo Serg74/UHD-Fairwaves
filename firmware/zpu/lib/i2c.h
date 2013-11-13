@@ -36,4 +36,7 @@ bool eeprom_read (int i2c_addr, int eeprom_offset, void *buf, int len);
 bool find_safe_booted_flag(void);
 void set_safe_booted_flag(bool flag);
 
+bool find_3rd_boot_flag(void);
+void set_3rd_boot_flag(bool flag);
+
 #endif /* INCLUDED_I2C_H */

@@ -44,9 +44,18 @@
 #include <string.h>
 #include <stdbool.h>
 
-#ifdef BOOTLOADER
-#include <bootloader_utils.h>
+//#ifdef BOOTLOADER
+#include <../usrp2p/bootloader_utils.h>
+//#endif
+
+#ifdef SPARTAN6
+#include <../usrp2p/xilinx_s6_icap.h>
+#else
+#include <../usrp2p/xilinx_s3_icap.h>
 #endif
+
+
+#include "mdelay.h"
 
 //virtual registers in the firmware to store persistent values
 static uint32_t fw_regs[8];
@@ -327,6 +336,23 @@ int
 main(void)
 {
   u2_init();
+
+  putstr("\nChecking for 3d boot\n");
+  if (find_3rd_boot_flag()) {
+    putstr("3d boot is alreday done, reseting the flag and continuing booting\n");
+    set_3rd_boot_flag(0);
+  } else {
+    putstr("3d boot requested, marking as done and waiting for 20 sec\n");
+    set_3rd_boot_flag(1);
+    mdelay(20000);
+    putstr("Rebooting...\n\n");
+#ifdef SPARTAN6
+    icap_s6_reload_fpga(PROD_FPGA_IMAGE_LOCATION_ADDR, SAFE_FPGA_IMAGE_LOCATION_ADDR);
+#else
+    icap_s3_reload_fpga(PROD_FPGA_IMAGE_LOCATION_ADDR);
+#endif
+  }
+
 #ifdef BOOTLOADER
   putstr("\nUSRP N210 UDP bootloader\n");
 #else

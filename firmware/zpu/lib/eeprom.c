@@ -18,6 +18,7 @@
 #include "i2c.h"
 #include "mdelay.h"
 #include "usrp2/fw_common.h"
+#include "stdio.h"
 
 static const int EEPROM_PAGESIZE = 16;
 
@@ -27,14 +28,37 @@ bool find_safe_booted_flag(void) {
 #else
 	unsigned char flag_byte;
 	eeprom_read(USRP2_I2C_ADDR_MBOARD, USRP2_EE_MBOARD_BOOTLOADER_FLAGS, &flag_byte, 1);
-	return (flag_byte == 0x5E);
+	return ((flag_byte&0x01) > 0);
 #endif
 }
 
 void set_safe_booted_flag(bool flag) {
 #ifndef NO_EEPROM
-	unsigned char flag_byte = flag ? 0x5E : 0xDC;
+	unsigned char flag_byte;
+	eeprom_read(USRP2_I2C_ADDR_MBOARD, USRP2_EE_MBOARD_BOOTLOADER_FLAGS, &flag_byte, 1);
+	flag_byte = (flag_byte&0xFE) | (flag ? 0x01 : 0x00);
 	eeprom_write(USRP2_I2C_ADDR_MBOARD, USRP2_EE_MBOARD_BOOTLOADER_FLAGS, &flag_byte, 1);
+#endif
+}
+
+bool find_3rd_boot_flag(void) {
+#ifdef NO_EEPROM
+	return 0;
+#else
+	unsigned char flag_byte;
+	eeprom_read(USRP2_I2C_ADDR_MBOARD, USRP2_EE_MBOARD_BOOTLOADER_FLAGS+1, &flag_byte, 1);
+	printf("Read 3rd boot flag: %d (full byte is %x)\n", ((flag_byte&0x02) > 0), flag_byte);
+	return ((flag_byte&0x02) > 0);
+#endif
+}
+
+void set_3rd_boot_flag(bool flag) {
+#ifndef NO_EEPROM
+	unsigned char flag_byte;
+	eeprom_read(USRP2_I2C_ADDR_MBOARD, USRP2_EE_MBOARD_BOOTLOADER_FLAGS+1, &flag_byte, 1);
+	flag_byte = (flag_byte&0xFD) | (flag ? 0x02 : 0x00);
+	printf("Setting 3rd boot flag to %d (full byte is %x)\n", flag, flag_byte);
+	eeprom_write(USRP2_I2C_ADDR_MBOARD, USRP2_EE_MBOARD_BOOTLOADER_FLAGS+1, &flag_byte, 1);
 #endif
 }
 
