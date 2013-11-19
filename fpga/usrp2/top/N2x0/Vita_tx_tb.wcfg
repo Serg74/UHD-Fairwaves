@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/TEST/Test_firmware/UHD-Fairwaves_last_dual/fpga/usrp2/top/N2x0/build_UmTRXv2/vita_tx_tb_isim_beh.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="std_logic_1164" />
+            <top_module name="vita_tx_tb" />
+            <top_module name="vl_types" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="23" />
+   <wvobject fp_name="/vita_tx_tb/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/dac_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">dac_clk</obj_property>
+      <obj_property name="ObjectShortName">dac_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/set_stb" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">set_stb</obj_property>
+      <obj_property name="ObjectShortName">set_stb</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/set_addr" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">set_addr[7:0]</obj_property>
+      <obj_property name="ObjectShortName">set_addr[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/set_data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">set_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">set_data[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/vita_time" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">vita_time[63:0]</obj_property>
+      <obj_property name="ObjectShortName">vita_time[63:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/tx_data_i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">tx_data_i[35:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data_i[35:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/tx_src_rdy_i" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">tx_src_rdy_i</obj_property>
+      <obj_property name="ObjectShortName">tx_src_rdy_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/err_dst_rdy_i" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">err_dst_rdy_i</obj_property>
+      <obj_property name="ObjectShortName">err_dst_rdy_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/tx_dst_rdy_o" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">tx_dst_rdy_o</obj_property>
+      <obj_property name="ObjectShortName">tx_dst_rdy_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/err_data_o" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">err_data_o[35:0]</obj_property>
+      <obj_property name="ObjectShortName">err_data_o[35:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/err_src_rdy_o" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">err_src_rdy_o</obj_property>
+      <obj_property name="ObjectShortName">err_src_rdy_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/tx_i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">tx_i[23:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_i[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/tx_q" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">tx_q[23:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_q[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/underrun" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">underrun</obj_property>
+      <obj_property name="ObjectShortName">underrun</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/run" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">run</obj_property>
+      <obj_property name="ObjectShortName">run</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/debug" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">debug[31:0]</obj_property>
+      <obj_property name="ObjectShortName">debug[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/clk_period" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">clk_period</obj_property>
+      <obj_property name="ObjectShortName">clk_period</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/vita_tx_tb/dac_clk_period" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">dac_clk_period</obj_property>
+      <obj_property name="ObjectShortName">dac_clk_period</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="group21" type="group">
+      <obj_property name="label">DSP</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/rst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/set_stb" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">set_stb</obj_property>
+         <obj_property name="ObjectShortName">set_stb</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/set_addr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">set_addr[7:0]</obj_property>
+         <obj_property name="ObjectShortName">set_addr[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/set_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">set_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">set_data[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/tx_i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">tx_i[23:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_i[23:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/tx_q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">tx_q[23:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_q[23:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/sample" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">sample[31:0]</obj_property>
+         <obj_property name="ObjectShortName">sample[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/run" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">run</obj_property>
+         <obj_property name="ObjectShortName">run</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/strobe" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">strobe</obj_property>
+         <obj_property name="ObjectShortName">strobe</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/debug" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">debug[31:0]</obj_property>
+         <obj_property name="ObjectShortName">debug[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">i[15:0]</obj_property>
+         <obj_property name="ObjectShortName">i[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">q[15:0]</obj_property>
+         <obj_property name="ObjectShortName">q[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/scale_i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">scale_i[15:0]</obj_property>
+         <obj_property name="ObjectShortName">scale_i[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/scale_q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">scale_q[15:0]</obj_property>
+         <obj_property name="ObjectShortName">scale_q[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/phase_inc" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">phase_inc[31:0]</obj_property>
+         <obj_property name="ObjectShortName">phase_inc[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/interp_rate" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">interp_rate[7:0]</obj_property>
+         <obj_property name="ObjectShortName">interp_rate[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/dacmux_a" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dacmux_a[3:0]</obj_property>
+         <obj_property name="ObjectShortName">dacmux_a[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/dacmux_b" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">dacmux_b[3:0]</obj_property>
+         <obj_property name="ObjectShortName">dacmux_b[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/enable_hb1" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">enable_hb1</obj_property>
+         <obj_property name="ObjectShortName">enable_hb1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/enable_hb2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">enable_hb2</obj_property>
+         <obj_property name="ObjectShortName">enable_hb2</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/rate_change" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">rate_change</obj_property>
+         <obj_property name="ObjectShortName">rate_change</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/strobe_cic_pre" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">strobe_cic_pre</obj_property>
+         <obj_property name="ObjectShortName">strobe_cic_pre</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/strobe_hb1_pre" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">strobe_hb1_pre</obj_property>
+         <obj_property name="ObjectShortName">strobe_hb1_pre</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/strobe_hb2_pre" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">strobe_hb2_pre</obj_property>
+         <obj_property name="ObjectShortName">strobe_hb2_pre</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/da" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">da[17:0]</obj_property>
+         <obj_property name="ObjectShortName">da[17:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/db" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">db[17:0]</obj_property>
+         <obj_property name="ObjectShortName">db[17:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/prod_i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">prod_i[35:0]</obj_property>
+         <obj_property name="ObjectShortName">prod_i[35:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/prod_q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">prod_q[35:0]</obj_property>
+         <obj_property name="ObjectShortName">prod_q[35:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/bb_i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">bb_i[17:0]</obj_property>
+         <obj_property name="ObjectShortName">bb_i[17:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/bb_q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">bb_q[17:0]</obj_property>
+         <obj_property name="ObjectShortName">bb_q[17:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/i_interp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">i_interp[17:0]</obj_property>
+         <obj_property name="ObjectShortName">i_interp[17:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/q_interp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">q_interp[17:0]</obj_property>
+         <obj_property name="ObjectShortName">q_interp[17:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/hb1_i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">hb1_i[17:0]</obj_property>
+         <obj_property name="ObjectShortName">hb1_i[17:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/hb1_q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">hb1_q[17:0]</obj_property>
+         <obj_property name="ObjectShortName">hb1_q[17:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/hb2_i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">hb2_i[17:0]</obj_property>
+         <obj_property name="ObjectShortName">hb2_i[17:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/hb2_q" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">hb2_q[17:0]</obj_property>
+         <obj_property name="ObjectShortName">hb2_q[17:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/cpo" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">cpo[7:0]</obj_property>
+         <obj_property name="ObjectShortName">cpo[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/da_c" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">da_c[23:0]</obj_property>
+         <obj_property name="ObjectShortName">da_c[23:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/db_c" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">db_c[23:0]</obj_property>
+         <obj_property name="ObjectShortName">db_c[23:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/phase" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">phase[31:0]</obj_property>
+         <obj_property name="ObjectShortName">phase[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/strobe_cic" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">strobe_cic</obj_property>
+         <obj_property name="ObjectShortName">strobe_cic</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/strobe_hb1" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">strobe_hb1</obj_property>
+         <obj_property name="ObjectShortName">strobe_hb1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/strobe_hb2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">strobe_hb2</obj_property>
+         <obj_property name="ObjectShortName">strobe_hb2</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/BASE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">BASE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BASE[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/cwidth" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">cwidth[31:0]</obj_property>
+         <obj_property name="ObjectShortName">cwidth[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/dsp_core_tx/zwidth" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">zwidth[31:0]</obj_property>
+         <obj_property name="ObjectShortName">zwidth[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group22" type="group">
+      <obj_property name="label">Control</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/clear" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clear</obj_property>
+         <obj_property name="ObjectShortName">clear</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/dac_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">dac_clk</obj_property>
+         <obj_property name="ObjectShortName">dac_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/set_stb" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">set_stb</obj_property>
+         <obj_property name="ObjectShortName">set_stb</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/set_addr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">set_addr[7:0]</obj_property>
+         <obj_property name="ObjectShortName">set_addr[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/set_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">set_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">set_data[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/vita_time" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">vita_time[63:0]</obj_property>
+         <obj_property name="ObjectShortName">vita_time[63:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/error" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">error</obj_property>
+         <obj_property name="ObjectShortName">error</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/ack" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">ack</obj_property>
+         <obj_property name="ObjectShortName">ack</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/sample_fifo_i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">sample_fifo_i[116:0]</obj_property>
+         <obj_property name="ObjectShortName">sample_fifo_i[116:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/sample_fifo_dst_rdy_o" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sample_fifo_dst_rdy_o</obj_property>
+         <obj_property name="ObjectShortName">sample_fifo_dst_rdy_o</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/sample" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">sample[31:0]</obj_property>
+         <obj_property name="ObjectShortName">sample[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/debug" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">debug[31:0]</obj_property>
+         <obj_property name="ObjectShortName">debug[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/send_time" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">send_time[63:0]</obj_property>
+         <obj_property name="ObjectShortName">send_time[63:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/seqnum" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">seqnum[15:0]</obj_property>
+         <obj_property name="ObjectShortName">seqnum[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/sob" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sob</obj_property>
+         <obj_property name="ObjectShortName">sob</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/send_at" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">send_at</obj_property>
+         <obj_property name="ObjectShortName">send_at</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/seqnum_err" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">seqnum_err</obj_property>
+         <obj_property name="ObjectShortName">seqnum_err</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/now" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">now</obj_property>
+         <obj_property name="ObjectShortName">now</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/early" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">early</obj_property>
+         <obj_property name="ObjectShortName">early</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/late" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">late</obj_property>
+         <obj_property name="ObjectShortName">late</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/too_early" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">too_early</obj_property>
+         <obj_property name="ObjectShortName">too_early</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/CODE_EOB_ACK" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">CODE_EOB_ACK[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CODE_EOB_ACK[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/CODE_UNDERRUN" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">CODE_UNDERRUN[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CODE_UNDERRUN[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/CODE_SEQ_ERROR" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">CODE_SEQ_ERROR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CODE_SEQ_ERROR[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/CODE_TIME_ERROR" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">CODE_TIME_ERROR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CODE_TIME_ERROR[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/CODE_UNDERRUN_MIDPKT" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">CODE_UNDERRUN_MIDPKT[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CODE_UNDERRUN_MIDPKT[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/CODE_SEQ_ERROR_MIDBURST" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">CODE_SEQ_ERROR_MIDBURST[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CODE_SEQ_ERROR_MIDBURST[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/error_policy" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">error_policy[31:0]</obj_property>
+         <obj_property name="ObjectShortName">error_policy[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/policy_wait" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">policy_wait</obj_property>
+         <obj_property name="ObjectShortName">policy_wait</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/policy_next_packet" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">policy_next_packet</obj_property>
+         <obj_property name="ObjectShortName">policy_next_packet</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/policy_next_burst" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">policy_next_burst</obj_property>
+         <obj_property name="ObjectShortName">policy_next_burst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/error_code" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">error_code[31:0]</obj_property>
+         <obj_property name="ObjectShortName">error_code[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/packet_consumed" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">packet_consumed</obj_property>
+         <obj_property name="ObjectShortName">packet_consumed</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/late_qual" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">late_qual</obj_property>
+         <obj_property name="ObjectShortName">late_qual</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/late_del" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">late_del</obj_property>
+         <obj_property name="ObjectShortName">late_del</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/send_error" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">send_error</obj_property>
+         <obj_property name="ObjectShortName">send_error</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/send_ack" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">send_ack</obj_property>
+         <obj_property name="ObjectShortName">send_ack</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/sample_fifo_src_rdy_i" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sample_fifo_src_rdy_i</obj_property>
+         <obj_property name="ObjectShortName">sample_fifo_src_rdy_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/strobe" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">strobe</obj_property>
+         <obj_property name="ObjectShortName">strobe</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/eop" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">eop</obj_property>
+         <obj_property name="ObjectShortName">eop</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/eob" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">eob</obj_property>
+         <obj_property name="ObjectShortName">eob</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/ibs_state" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">ibs_state[2:0]</obj_property>
+         <obj_property name="ObjectShortName">ibs_state[2:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/run" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">run</obj_property>
+         <obj_property name="ObjectShortName">run</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/countdown" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">countdown[19:0]</obj_property>
+         <obj_property name="ObjectShortName">countdown[19:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/BASE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">BASE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BASE[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/WIDTH" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">WIDTH[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/IBS_IDLE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">IBS_IDLE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">IBS_IDLE[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/IBS_RUN" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">IBS_RUN[31:0]</obj_property>
+         <obj_property name="ObjectShortName">IBS_RUN[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/IBS_CONT_BURST" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">IBS_CONT_BURST[31:0]</obj_property>
+         <obj_property name="ObjectShortName">IBS_CONT_BURST[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/IBS_ERROR" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">IBS_ERROR[31:0]</obj_property>
+         <obj_property name="ObjectShortName">IBS_ERROR[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/IBS_ERROR_DONE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">IBS_ERROR_DONE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">IBS_ERROR_DONE[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/IBS_ERROR_WAIT" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">IBS_ERROR_WAIT[31:0]</obj_property>
+         <obj_property name="ObjectShortName">IBS_ERROR_WAIT[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_control/MAX_IDLE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">MAX_IDLE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">MAX_IDLE[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group125" type="group">
+      <obj_property name="label">Deframeer</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/clear" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clear</obj_property>
+         <obj_property name="ObjectShortName">clear</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/clear_seqnum" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">clear_seqnum</obj_property>
+         <obj_property name="ObjectShortName">clear_seqnum</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/set_stb" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">set_stb</obj_property>
+         <obj_property name="ObjectShortName">set_stb</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/set_addr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">set_addr[7:0]</obj_property>
+         <obj_property name="ObjectShortName">set_addr[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/set_data" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">set_data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">set_data[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/data_i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_i[35:0]</obj_property>
+         <obj_property name="ObjectShortName">data_i[35:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/src_rdy_i" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">src_rdy_i</obj_property>
+         <obj_property name="ObjectShortName">src_rdy_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/dst_rdy_o" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">dst_rdy_o</obj_property>
+         <obj_property name="ObjectShortName">dst_rdy_o</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/sample_fifo_o" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">sample_fifo_o[116:0]</obj_property>
+         <obj_property name="ObjectShortName">sample_fifo_o[116:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/sample_fifo_src_rdy_o" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sample_fifo_src_rdy_o</obj_property>
+         <obj_property name="ObjectShortName">sample_fifo_src_rdy_o</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/sample_fifo_dst_rdy_i" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">sample_fifo_dst_rdy_i</obj_property>
+         <obj_property name="ObjectShortName">sample_fifo_dst_rdy_i</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/current_seqnum" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">current_seqnum[31:0]</obj_property>
+         <obj_property name="ObjectShortName">current_seqnum[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/fifo_occupied" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">fifo_occupied[15:0]</obj_property>
+         <obj_property name="ObjectShortName">fifo_occupied[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/fifo_full" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fifo_full</obj_property>
+         <obj_property name="ObjectShortName">fifo_full</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/fifo_empty" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fifo_empty</obj_property>
+         <obj_property name="ObjectShortName">fifo_empty</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/numchan" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">numchan[1:0]</obj_property>
+         <obj_property name="ObjectShortName">numchan[1:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/has_streamid" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">has_streamid</obj_property>
+         <obj_property name="ObjectShortName">has_streamid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/has_classid" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">has_classid</obj_property>
+         <obj_property name="ObjectShortName">has_classid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/has_secs" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">has_secs</obj_property>
+         <obj_property name="ObjectShortName">has_secs</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/has_tics" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">has_tics</obj_property>
+         <obj_property name="ObjectShortName">has_tics</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/has_trailer" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">has_trailer</obj_property>
+         <obj_property name="ObjectShortName">has_trailer</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/is_sob" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">is_sob</obj_property>
+         <obj_property name="ObjectShortName">is_sob</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/is_eob" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">is_eob</obj_property>
+         <obj_property name="ObjectShortName">is_eob</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/eof" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">eof</obj_property>
+         <obj_property name="ObjectShortName">eof</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/line_done" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">line_done</obj_property>
+         <obj_property name="ObjectShortName">line_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/seqnum" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">seqnum[31:0]</obj_property>
+         <obj_property name="ObjectShortName">seqnum[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/next_seqnum" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">next_seqnum[31:0]</obj_property>
+         <obj_property name="ObjectShortName">next_seqnum[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/vita_seqnum" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">vita_seqnum[3:0]</obj_property>
+         <obj_property name="ObjectShortName">vita_seqnum[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/next_vita_seqnum" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">next_vita_seqnum[3:0]</obj_property>
+         <obj_property name="ObjectShortName">next_vita_seqnum[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/hdr_len" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">hdr_len[15:0]</obj_property>
+         <obj_property name="ObjectShortName">hdr_len[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/vita_eof" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">vita_eof</obj_property>
+         <obj_property name="ObjectShortName">vita_eof</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/eop" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">eop</obj_property>
+         <obj_property name="ObjectShortName">eop</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/fifo_space" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fifo_space</obj_property>
+         <obj_property name="ObjectShortName">fifo_space</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/fifo_i" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">fifo_i[116:0]</obj_property>
+         <obj_property name="ObjectShortName">fifo_i[116:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/store" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">store</obj_property>
+         <obj_property name="ObjectShortName">store</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/vita_state" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">vita_state[3:0]</obj_property>
+         <obj_property name="ObjectShortName">vita_state[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/has_streamid_reg" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">has_streamid_reg</obj_property>
+         <obj_property name="ObjectShortName">has_streamid_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/has_classid_reg" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">has_classid_reg</obj_property>
+         <obj_property name="ObjectShortName">has_classid_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/has_secs_reg" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">has_secs_reg</obj_property>
+         <obj_property name="ObjectShortName">has_secs_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/has_tics_reg" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">has_tics_reg</obj_property>
+         <obj_property name="ObjectShortName">has_tics_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/has_trailer_reg" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">has_trailer_reg</obj_property>
+         <obj_property name="ObjectShortName">has_trailer_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/is_sob_reg" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">is_sob_reg</obj_property>
+         <obj_property name="ObjectShortName">is_sob_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/is_eob_reg" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">is_eob_reg</obj_property>
+         <obj_property name="ObjectShortName">is_eob_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/pkt_len" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pkt_len[15:0]</obj_property>
+         <obj_property name="ObjectShortName">pkt_len[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/vector_phase" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">vector_phase[1:0]</obj_property>
+         <obj_property name="ObjectShortName">vector_phase[1:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/seqnum_reg" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">seqnum_reg[31:0]</obj_property>
+         <obj_property name="ObjectShortName">seqnum_reg[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/vita_seqnum_reg" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">vita_seqnum_reg[3:0]</obj_property>
+         <obj_property name="ObjectShortName">vita_seqnum_reg[3:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/seqnum_err" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">seqnum_err</obj_property>
+         <obj_property name="ObjectShortName">seqnum_err</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/send_time" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">send_time[63:0]</obj_property>
+         <obj_property name="ObjectShortName">send_time[63:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/sample_a" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">sample_a[31:0]</obj_property>
+         <obj_property name="ObjectShortName">sample_a[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/sample_b" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">sample_b[31:0]</obj_property>
+         <obj_property name="ObjectShortName">sample_b[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/sample_c" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">sample_c[31:0]</obj_property>
+         <obj_property name="ObjectShortName">sample_c[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/sample_d" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">sample_d[31:0]</obj_property>
+         <obj_property name="ObjectShortName">sample_d[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/BASE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">BASE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BASE[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/MAXCHAN" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">MAXCHAN[31:0]</obj_property>
+         <obj_property name="ObjectShortName">MAXCHAN[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/USE_TRANS_HEADER" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">USE_TRANS_HEADER[31:0]</obj_property>
+         <obj_property name="ObjectShortName">USE_TRANS_HEADER[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/FIFOWIDTH" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">FIFOWIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">FIFOWIDTH[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_TRANS_HEADER" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_TRANS_HEADER[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_TRANS_HEADER[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_HEADER" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_HEADER[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_HEADER[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_STREAMID" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_STREAMID[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_STREAMID[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_CLASSID" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_CLASSID[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_CLASSID[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_CLASSID2" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_CLASSID2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_CLASSID2[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_SECS" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_SECS[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_SECS[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_TICS" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_TICS[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_TICS[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_TICS2" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_TICS2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_TICS2[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_PAYLOAD" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_PAYLOAD[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_PAYLOAD[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_STORE" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_STORE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_STORE[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_TRAILER" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_TRAILER[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_TRAILER[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/VITA_DUMP" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">VITA_DUMP[31:0]</obj_property>
+         <obj_property name="ObjectShortName">VITA_DUMP[31:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="group315" type="group">
+         <obj_property name="label">New Group</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/clk" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">clk</obj_property>
+            <obj_property name="ObjectShortName">clk</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/reset" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">reset</obj_property>
+            <obj_property name="ObjectShortName">reset</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/clear" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">clear</obj_property>
+            <obj_property name="ObjectShortName">clear</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/datain" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">datain[116:0]</obj_property>
+            <obj_property name="ObjectShortName">datain[116:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/src_rdy_i" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">src_rdy_i</obj_property>
+            <obj_property name="ObjectShortName">src_rdy_i</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/dst_rdy_o" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">dst_rdy_o</obj_property>
+            <obj_property name="ObjectShortName">dst_rdy_o</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/dataout" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">dataout[116:0]</obj_property>
+            <obj_property name="ObjectShortName">dataout[116:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/src_rdy_o" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">src_rdy_o</obj_property>
+            <obj_property name="ObjectShortName">src_rdy_o</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/dst_rdy_i" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">dst_rdy_i</obj_property>
+            <obj_property name="ObjectShortName">dst_rdy_i</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/write" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">write</obj_property>
+            <obj_property name="ObjectShortName">write</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/read" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">read</obj_property>
+            <obj_property name="ObjectShortName">read</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/space" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">space[4:0]</obj_property>
+            <obj_property name="ObjectShortName">space[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/occupied" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">occupied[4:0]</obj_property>
+            <obj_property name="ObjectShortName">occupied[4:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/full" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">full</obj_property>
+            <obj_property name="ObjectShortName">full</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/empty" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">empty</obj_property>
+            <obj_property name="ObjectShortName">empty</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/a" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">a[3:0]</obj_property>
+            <obj_property name="ObjectShortName">a[3:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/vita_tx_tb/uut/vita_tx_deframer/short_tx_q/WIDTH" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">WIDTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">WIDTH[31:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+</wave_config>

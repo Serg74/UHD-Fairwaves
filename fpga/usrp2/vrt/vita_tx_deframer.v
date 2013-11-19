@@ -67,7 +67,8 @@ module vita_tx_deframer
    
    wire [31:0] seqnum = data_i;
    reg [31:0]  seqnum_reg;
-   wire [31:0] next_seqnum = seqnum_reg + 32'd1;
+   wire [31:0] next_seqnum;
+   assign next_seqnum = seqnum_reg + 32'd1;
    wire [3:0]  vita_seqnum = data_i[19:16];
    reg [3:0]   vita_seqnum_reg;
    wire [3:0]  next_vita_seqnum = vita_seqnum_reg[3:0] + 4'd1;
