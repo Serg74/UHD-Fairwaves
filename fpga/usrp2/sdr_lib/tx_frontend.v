@@ -10,6 +10,7 @@ module tx_frontend
    (input clk, input rst,
     input set_stb, input [7:0] set_addr, input [31:0] set_data,
     input [23:0] tx_i, input [23:0] tx_q, input run,
+    input [WIDTH_OUT-1:0] adc_a, input [WIDTH_OUT-1:0] adc_b,
     output reg [WIDTH_OUT-1:0] dac_a, output reg [WIDTH_OUT-1:0] dac_b
     );
 
@@ -21,6 +22,9 @@ module tx_frontend
    wire [35:0] corr_i, corr_q;
    wire [23:0] i_bal, q_bal;
    wire [17:0] mag_corr, phase_corr;
+   
+   wire [7:0]  test_mux;
+   reg [WIDTH_OUT-1:0] dac_a_buf; reg [WIDTH_OUT-1:0] dac_b_buf;
    
    setting_reg #(.my_addr(BASE+0), .width(24)) sr_0
      (.clk(clk),.rst(rst),.strobe(set_stb),.addr(set_addr),
@@ -41,6 +45,10 @@ module tx_frontend
    setting_reg #(.my_addr(BASE+4), .width(8)) sr_4
      (.clk(clk),.rst(rst),.strobe(set_stb),.addr(set_addr),
       .in(set_data),.out(mux_ctrl),.changed());
+
+   setting_reg #(.my_addr(BASE+5), .width(8)) sr_5
+     (.clk(clk),.rst(rst),.strobe(set_stb),.addr(set_addr),
+      .in(set_data),.out(test_mux),.changed());
 
    generate
       if(IQCOMP_EN==1)
@@ -90,16 +98,24 @@ module tx_frontend
    // Mux
    always @(posedge clk)
      case(mux_ctrl[3:0])
-       0 : dac_a <= i_final;
-       1 : dac_a <= q_final;
-       default : dac_a <= 0;
+       0 : dac_a_buf <= i_final;
+       1 : dac_a_buf <= q_final;
+       default : dac_a_buf <= 0;
      endcase // case (mux_ctrl[3:0])
       
    always @(posedge clk)
      case(mux_ctrl[7:4])
-       0 : dac_b <= i_final;
-       1 : dac_b <= q_final;
-       default : dac_b <= 0;
+       0 : dac_b_buf <= i_final;
+       1 : dac_b_buf <= q_final;
+       default : dac_b_buf <= 0;
+     endcase // case (mux_ctrl[7:4])
+
+
+   always @(posedge clk)
+     case(test_mux[7:0])
+       0 : begin dac_a <= dac_a_buf; dac_b <= dac_b_buf; end
+       1 : begin dac_a <= adc_a; dac_b <= adc_b; end
+       default : begin dac_a <= 0; dac_b <= 0; end
      endcase // case (mux_ctrl[7:4])
       
 endmodule // tx_frontend

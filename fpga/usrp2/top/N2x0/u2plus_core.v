@@ -964,6 +964,7 @@ module u2plus_core
       .set_stb(set_stb_dsp_low),.set_addr(set_addr_dsp_low),.set_data(set_data_dsp_low),
 `endif // !`ifndef LMS_DSP
       .tx_i(front_i_0), .tx_q(front_q_0), .run(1'b1),
+      .adc_a(adc_a_1[13:2]), .adc_b(adc_b_1[13:2]),
       .dac_a(dac_a), .dac_b(dac_b));
 
    // /////////////////////////////////////////////////////////////////////////
@@ -999,6 +1000,7 @@ module u2plus_core
       .set_stb(set_stb_dsp_low),.set_addr(set_addr_dsp_low),.set_data(set_data_dsp_low),
 `endif // !`ifndef LMS_DSP
       .tx_i(front_i_1), .tx_q(front_q_1), .run(1'b1),
+      .adc_a(adc_a_0[13:2]), .adc_b(adc_b_0[13:2]),
       .dac_a(dac1_a), .dac_b(dac1_b));
 
    // ///////////////////////////////////////////////////////////////////////////////////
